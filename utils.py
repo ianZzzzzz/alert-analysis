@@ -3,6 +3,14 @@ the alarm data then remove the unalarm rows,
 finally output the data as csv file in chronological order.'''
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+def find_all_file(folder_name):
+
+    for root,ds,fs in os.walk(folder_name):
+        for f in fs :
+            full_name = os.path.join(root,f)
+            yield full_name
 
 
 def tital_save_close_fig_excel(data, name, fig_suffix='.png', excel_suffix='.csv'):
