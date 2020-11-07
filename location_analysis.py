@@ -130,13 +130,14 @@ def find_all_file(folder_name):
             full_name = os.path.join(root,f)
             yield full_name
 
-folder_name = './data/'
+folder_name = './ori_data/'
+save_to = './gps_data/'
 ax = None 
 
 for file_name in find_all_file(folder_name):
 
     
-    area =int(file_name[7:9])
+    area =int(file_name[11:13])
     #print( file_name,area)
     
     singal_area_log = pd.read_csv(file_name, sep=",",header=None, names=data_names, encoding="gb2312")
@@ -147,7 +148,7 @@ for file_name in find_all_file(folder_name):
 
     useful_gps_data = df_gps_base_id[df_gps_base_id["longtitude"]>1]
 
-    
+    useful_gps_data.to_csv(str(save_to+file_name[11:17]))
 
     color_key = area -17
 
