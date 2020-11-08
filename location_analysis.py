@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import utils
+
 data_names = [
     "1-ID","2-时间","3-1级区域","4-2级区域","5-3级区域","6-4级区域","7-温度过高","8-温度预警","15-箱门告警","16-防雷告警",
     "18-风扇故障","19-网络设备异常","20-视频1网络异常","21-补光灯异常开启","22-补光灯异常关闭","23-视频2网络异常","24-视频3网络异常",
@@ -123,6 +125,7 @@ color_dict = {
     'rosybrown':            '#BC8F8F' 
     }
 color_list = list(color_dict.values())
+
 def find_all_file(folder_name):
 
     for root,ds,fs in os.walk(folder_name):
@@ -133,8 +136,8 @@ def find_all_file(folder_name):
 folder_name = './ori_data/'
 save_to = './gps_data/'
 ax = None 
-
-for file_name in find_all_file(folder_name):
+file_list = utils.find_all_file(folder_name)
+for file_name in file_list:
 
     
     area =int(file_name[11:13])
@@ -157,5 +160,4 @@ for file_name in find_all_file(folder_name):
     ax = useful_gps_data.plot.scatter(x= "longtitude",y="magtitude",label = area,color= color_list[color_key] ,ax = ax  )
     
     
-
 plt.show()
