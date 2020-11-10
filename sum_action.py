@@ -54,10 +54,10 @@ def describe(data):
     df_with_column_name = pd.DataFrame(data,columns=col_names)   
     print(df_with_column_name.shape)
 
-    df_with_column_name = df_with_column_name.drop(columns = ["5-3级区域","6-4级区域","7-温度过高","8-温度预警","21-补光灯异常开启","22-补光灯异常关闭","25-视频4网络异常","26-视频5网络异常","27-视频6网络异常","28-温度低"])
+   # df_with_column_name = df_with_column_name.drop(columns = [])
+    
+    df_with_column_name = df_with_column_name.drop(columns = ["5-3级区域","6-4级区域","3-1级区域","4-2级区域","2-时间","longtitude","magtitude"])
     print(df_with_column_name.shape)
-    df_with_column_name = df_with_column_name.drop(columns = ["3-1级区域","4-2级区域","2-时间","longtitude","magtitude"])
-   
     #print(df_with_column_name.columns)
     df_gb_id = df_with_column_name.groupby('ID').sum()
     df_gb_id.to_csv('all_gb_id_sum.csv')
@@ -68,9 +68,9 @@ def describe(data):
 
     print('id',df_count_id,df_count_id.shape,'label',df_count_label,df_count_label.shape)
     
-    df_gb_id.to_csv('all_gb_id_sum.csv')
-    df_count_label.to_csv('df_count_label.csv')
-    df_count_id.to_csv('df_count_id.csv')
+    df_gb_id.to_csv('all_gb_id_sum_ALL.csv')
+    df_count_label.to_csv('df_count_label_ALL.csv')
+    df_count_id.to_csv('df_count_id_ALL.csv')
     #df_gb_id_unstack = df_gb_id.unstack()
 
     array = np.array(df_gb_id)
@@ -83,8 +83,22 @@ def describe(data):
         )
 
     return data
+def find_value_data(file_path):
+    
+    df = pd.read_csv(file_path)
+#    df = pd.DataFrame(df)
+    df=df.set_index(['ID'])
 
-describe(load(folder))
+    replace = df.replace(0,'None')
+    df = replace.dropna(how= 'all')
+    value_id = df.describe()
+    df.to_csv('none_zero_id.csv')
+
+    
+
+
+find_value_data('D:\\zyh\\_workspace\\IOT\\all_gb_id_sum_ALL.csv')
+#describe(load(folder))
 #print(load(folder))
 '''
 result = folder \
