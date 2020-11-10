@@ -1,12 +1,13 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import sys
 sys.path.append("..")
 #from dir3 import file3
-from package import utils
+import utils
 #from package.utils import return_file_path
 folder =   '..\\IOT_data\\ori_data'#r'D:\\zyh\\_workspace\\IOT_data\\ori_data'
-print(folder)
+#print(folder)
 class Pipeline:
     def __init__(self, func):
         self.func = func
@@ -84,20 +85,39 @@ def describe(data):
 
     return data
 def find_value_data(file_path):
+
     
     df = pd.read_csv(file_path)
-#    df = pd.DataFrame(df)
+
+    df = df.astype('int')
     df=df.set_index(['ID'])
 
-    replace = df.replace(0,'None')
+    replace = df.replace(0,np.nan)
+    replace = replace[replace>10]
     df = replace.dropna(how= 'all')
+
+  
     value_id = df.describe()
-    df.to_csv('none_zero_id.csv')
+
+    df.to_csv('none_zero_id_bigger10.csv')
+def show_value_data(gps_file,id_file):
+    gps = pd.read_csv(gps_file,index_col= 0 ,header = None)
+    gps = gps.iloc[:,1:]
+    #gps =pd.DataFrame( gps,columns=['ID','L','M'])
+
+    id_data = pd.read_csv(id_file,index_col='ID')
+
+    value_gps =gps[gps.index.isin(id_data.index)]
+    print(value_gps)
+    value_gps.columns=list('LM')
+    value_gps.plot.scatter(x='L',y='M')
+    #plt.scatter(x=value_gps.L,y=value_gps.M)
+    plt.show()
 
     
+show_value_data('full_gps_data.csv','none_zero_id_bigger10.csv')
 
-
-find_value_data('D:\\zyh\\_workspace\\IOT\\all_gb_id_sum_ALL.csv')
+#find_value_data('D:\\zyh\\_workspace\\IOT\\all_gb_id_sum_ALL.csv')
 #describe(load(folder))
 #print(load(folder))
 '''
