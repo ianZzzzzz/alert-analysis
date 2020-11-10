@@ -8,11 +8,11 @@ pipeline
 log_file_path
  # preprocess
     |   load_merge 
-    
     |   slice_timepoint
     |   groupby_id 
     |   sum_base_id
     |   load_to_set
+    
  # train_process
     |   LogisticRegression
  # score_the_result
@@ -49,12 +49,33 @@ def load_merge(folder_path):
 def slice_time_point(df):
     time_point = 1912061200
     df.columns = list(['time'])
+    df.set_index('id')
+    df.dorp('所有非error的列')
     df = df.sortby('time')
-    # sclice
+    # sclice gb.sum
     df_train = df[df.time <= time_point]
     err_label = df[df.time > time_point]
+    df_train_gb = df_train.groupby('id').sum()
+    err_label_gb = err_label.groupby('id').sum()
 
-    # sum
-    df_id = df_train.groupby('id').sum()
-    #这里gb必须是纯err数据 不含区域 要fix之前的错误
+    
+    
     #去掉df里的区域经纬度 另存一个表 后面加上
+
+    location = pd.read_csv('location_file',index_col='id')
+    #useful_location = location[location.id.isin(df_id.id)]
+    df_train_gb['father','sun','longtitude','magtitude'] = []
+
+    df_train_gb.set_index('id')
+    
+    for i in enumerate(df_train_gb.index):
+        df_train_gb[i]['father','sun','longtitude','magtitude'] = 
+            location[i]['father','sun','longtitude','magtitude']
+    
+    err_label_gb.set_index('id')
+    err_label['sum'] = err_label_gb.sum(axis =1)
+    err_label['label'][err_label.sum<10] = 0
+    err_label['label'][err_label.sum>=0] = 1
+
+    err_label.to_csv('set.csv')
+    
