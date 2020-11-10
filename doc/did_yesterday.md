@@ -3,20 +3,23 @@
 ### 对数据价值进行界定
     H 高价值数据 63条 
         GPS
-        单项告警>10条
+        单项告警>10
     M 普通数据 443条
         无GPS
-        单项告警>10条
-    L 低价值数据
-        零星告警 <10条
-## 对数据有基础了解了 进行建模
+        单项告警>10
+    L 低价值数据 2500条左右
+        零星告警 
+## 对数据有基础了解了 基于M数据进行建模
 ```mermaid
     graph TB
-    traindata-->model 
-    errorlabel-->model
+    train_set-->model 
+    
     log-->基于id的历史记录-->补全时间轴-->划分训练与预测时间分界点-->汇总
-    汇总-->errorlabel
-    汇总-->traindata
+    
+    汇总-->action_data
+    action_data-->test_set-->model
+    action_data-->train_set
+
 ```
     
 
