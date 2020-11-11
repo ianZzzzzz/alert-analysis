@@ -12,7 +12,7 @@ log_file_path
     |   groupby_id 
     |   sum_base_id
     |   load_to_set
-    
+
  # train_process
     |   LogisticRegression
  # score_the_result
@@ -48,10 +48,17 @@ def load_merge(folder_path):
 
 def slice_time_point(df):
     time_point = 1912061200
-    df.columns = list(['time'])
+    df.columns = list( [
+        "id","time","area3","area4","area5","6-4级区域","7-温度过高","8-温度预警","15-箱门告警","16-防雷告警",
+        "18-风扇故障","19-网络设备异常","20-视频1网络异常","21-补光灯异常开启","22-补光灯异常关闭","23-视频2网络异常","24-视频3网络异常",
+        "25-视频4网络异常","26-视频5网络异常","27-视频6网络异常","28-温度低","29-监控网络连接异常","30-市电异常","longtitude","magtitude"]) 
+    
+    
+    
     df.set_index('id')
-    df.dorp('所有非error的列')
-    df = df.sortby('time')
+    df = df.dorp(["area3","area4","area5","6-4级区域","longtitude","magtitude"])
+    df.sort_values(by = 'time',ascending = True ,inplace = True)
+
     # sclice gb.sum
     df_train = df[df.time <= time_point]
     err_label = df[df.time > time_point]
