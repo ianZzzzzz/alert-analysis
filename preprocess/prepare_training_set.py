@@ -50,7 +50,7 @@ def load_merge(folder_path):
         return np_data  """
 
 def slice_time_point(df):
-    time_point = 1912051200
+    time_point = 191203100000
     data_name = list([ "id","time","area3","area4","area5","6-4级区域",'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',"longtitude","magtitude" ] 
     )
     df.columns = data_name
@@ -63,17 +63,26 @@ def slice_time_point(df):
 
     df_train = df[df.time <= time_point]
     err_label = df[df.time > time_point]
-    print('silice finish')
+    print('silice finish','df_train sahpe',df_train.shape,'err_label shape',err_label.shape)
     df_train_gb = df_train.groupby('id').sum()
     err_label_gb = err_label.groupby('id').sum() #dfg
-    print('gb sum finish')
+    print('gb sum finish',)
     label = err_label_gb.sum(axis = 1) # 求各id 的总告警数量
-    print('axis =1 finish')
+    print('axis =1 finish',
+        'df_train_gb shape',df_train_gb.shape,
+        'err_label_gb shape',err_label_gb.shape)
     label = label[label>10] # np array
+    print('label shape',label.shape)
+
     print('>10')
-    Y= pd.DataFrame (df_train_gb.index)
+
+
+    Y= pd.DataFrame (label) # err
+
+    print('df_train_gb.index shape',df_train_gb.index.shape)
     print('init Y.index')
-    Y['label'] = label.index.isin(Y.index)
+    Y['label'] = label.index.isin(Y.index).values
+
 
     print('init Y.label')
 
@@ -83,11 +92,13 @@ def slice_time_point(df):
     train_data = df_train_gb.values # np array
     
     X = train_data
-    Y = Y.values
+    # Y = Y.values
+    Y = np.array(Y)
+    print("X shape",X,'Y shape',Y.shape)
     print('xy ready')
     
-    train_x,test_x,train_y,test_y = train_test_split(X,Y,test_size=0.2)
-    print(train_x,test_x,train_y,test_y)
+   # train_x,test_x,train_y,test_y = train_test_split(X,Y,test_size=0.2)
+    #print(train_x,test_x,train_y,test_y)
 
 
     
