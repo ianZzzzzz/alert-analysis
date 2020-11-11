@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib as plt
 from sklearn.svm import SVC
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import utils
 '''
@@ -51,35 +51,41 @@ def load_merge(folder_path):
 
 def slice_time_point(df):
     time_point = 1912051200
-    df.columns = list( [
-        "id","time","area3","area4","area5","6-4级区域","7-温度过高","8-温度预警","15-箱门告警","16-防雷告警",
-        "18-风扇故障","19-网络设备异常","20-视频1网络异常","21-补光灯异常开启","22-补光灯异常关闭","23-视频2网络异常","24-视频3网络异常",
-        "25-视频4网络异常","26-视频5网络异常","27-视频6网络异常","28-温度低","29-监控网络连接异常","30-市电异常","longtitude","magtitude"]) 
-    df = df.dorp(columns = ["area3","area4","area5","6-4级区域","longtitude","magtitude"])
+    data_name = list([ "id","time","area3","area4","area5","6-4级区域",'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',"longtitude","magtitude" ] 
+    )
+    df.columns = data_name
+    print('col name set')
+    df = df.drop(columns = ["area3","area4","area5","6-4级区域","longtitude","magtitude"])
+    print('useless col drop')
     df.sort_values(by = 'time',ascending = True ,inplace = True)
-    
-    # sclice gb.sum
+    print('sort by time')
+    print('sclice gb.sum')
+
     df_train = df[df.time <= time_point]
     err_label = df[df.time > time_point]
+    print('silice finish')
     df_train_gb = df_train.groupby('id').sum()
     err_label_gb = err_label.groupby('id').sum() #dfg
-
+    print('gb sum finish')
     label = err_label_gb.sum(axis = 1) # 求各id 的总告警数量
-  
+    print('axis =1 finish')
     label = label[label>10] # np array
-
+    print('>10')
     Y= pd.DataFrame (df_train_gb.index)
+    print('init Y.index')
     Y['label'] = label.index.isin(Y.index)
 
+    print('init Y.label')
 
 
 
     
-    train_data = df_train_gb.values() # np array
+    train_data = df_train_gb.values # np array
     
     X = train_data
     Y = Y.values
-
+    print('xy ready')
+    
     train_x,test_x,train_y,test_y = train_test_split(X,Y,test_size=0.2)
     print(train_x,test_x,train_y,test_y)
 
@@ -108,4 +114,4 @@ def slice_time_point(df):
      """
 
 
-slice_time_point( load_merge())
+slice_time_point( load_merge('D:\\zyh\\_workspace\\IOT_data\\logs3days'))

@@ -3,7 +3,8 @@
     df = df.drop(columns = ["5-3级区域","longtitude","magtitude"])
 # rename columns
 ## set column's name
-    l.columns
+    
     df.columns=list('L','M') 
+    !!! df不能为空 空会报错
 # 
     

@@ -143,4 +143,8 @@ ret =list(data_frame.columns)
 ret = data_names
 
 data_frame.columns = ret
-print(data_frame.columns)'''
+print(data_frame.columns)
+
+data_name =  [ "id","time","area3","area4","area5","6-4级区域",'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',"longtitude","magtitude" ] 
+    
+'''
