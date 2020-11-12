@@ -6,5 +6,5 @@
     
     df.columns=list('L','M') 
     !!! df不能为空 空会报错
-# 
-    
+# set index
+    Y.set_index(['index'],inplace = True)
