@@ -18,10 +18,10 @@ for i in level_1:
 
     for id in id_in_area_3:
 
-        tree.create_node(tag=str(id), identifier=str(id), data=np_matrix)
-
+      
 #```
 np.genfromtxt(("D:\\zyh\\_workspace\\IOT_data\\abnormal_data\\69_gps_all_zero.csv"), delimiter=",")
 
-level_1_tree = Tree ()
-for
+
+
+

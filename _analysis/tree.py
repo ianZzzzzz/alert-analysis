@@ -1,16 +1,25 @@
 import treelib
 from treelib import Tree, Node
 
-tree = Tree()
 
-tree.create_node(tag='AREA-0', identifier='area-0', data=100)
-tree.create_node(tag='AREA-15', identifier='area-15', parent='area-0', data=200)
-tree.create_node('AREA-16', 'area-16',parent='area-0', data=10)
-tree.create_node('AREA-17', 'area-17',parent='area-0', data=13)
+t = Tree ()
+t.create_node(0,0,data = [])
+# 0
+a0 = [15,16,17,55,69,70,71]
+for i in a0 :
+    t.create_node(i,i,parent = 0,data=[])
 
-tree.create_node('AREA-72', 'area-72',parent='area-15', data=190)
+# 15
 
-tree.show()
+a15 = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 72]
+for i in a15:
+    t.create_node(i,i,parent = 15,data=[])
+
+# 16
+for i in range(31,55):
+    t.create_node(i,i,parent = 16,data=[])
+
+t.show()
 """  
 node = Node(data=50)
 tree.add_node(node, parent='node-5')
