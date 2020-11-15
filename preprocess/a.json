@@ -1,0 +1,10 @@
+{
+    "x":{
+        "test":10,
+        "train":True
+    },
+    "y":{
+        "test":20,
+        "train":False
+    }
+}
