@@ -20,12 +20,4 @@ for i in range(31,55):
     t.create_node(i,i,parent = 16,data=[])
 
 t.show()
-"""  
-node = Node(data=50)
-tree.add_node(node, parent='node-5')
-node_a = Node(tag='Node-A', identifier='node-A', data='A')
-tree.add_node(node_a, parent='node-5')
 
-
-tree.show()
-print(tree.identifier) """
