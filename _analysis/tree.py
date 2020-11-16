@@ -3,26 +3,31 @@ from treelib import Tree, Node
 import os
 import pandas as pd
 import numpy as np
-def tree():
-    t = Tree ()
-    t.create_node(0,0,data = [])
-    # 0
-    a0 = [15,16,17,55,69,70,71]
-    for i in a0 :
-        t.create_node(i,i,parent = 0,data=[])
+class tree :
+    t = None
+    def __init__(self):
+        def create_location_tree(self):
+            t = Tree ()
+            t.create_node(0,0,data = [])
+            # 0
+            a0 = [15,16,17,55,69,70,71]
+            for i in a0 :
+                t.create_node(i,i,parent = 0,data=[])
 
-    # 15
+            # 15
 
-    a15 = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 72]
-    for i in a15:
-        t.create_node(i,i,parent = 15,data=[])
+            a15 = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 72]
+            for i in a15:
+                t.create_node(i,i,parent = 15,data=[])
 
-    # 16
-    for i in range(31,55):
-        t.create_node(i,i,parent = 16,data=[])
+            # 16
+            for i in range(31,55):
+                t.create_node(i,i,parent = 16,data=[])
 
-    t.show()
-    return
+            return t
+
+        self.t = create_location_tree(self)
+
 
 
 class load : 
@@ -65,9 +70,12 @@ class load :
         
         data = self.raw[:,column]
         return data
-    
-        
+    def gb(self,key): # 待补全
+        data = self.raw.groupby()
+
+        return data
 path = 'D:\\zyh\\_workspace\\IOT_data\\abnormal_data'
 
 data = load(path)  
-print(data.choose_column(column = 1))
+
+

@@ -35,7 +35,7 @@ class load :
         
             
 
-#   def find(self,raw,key,value):
+#   def find(raw,key,value)
         sclice
         groupby key
 #    export :path ,key
