@@ -1,6 +1,10 @@
+# multi output multi step model LSTM
+# TODO PCA
 import numpy as np
 import pandas as pd 
-
+import utils
+path = ''
+raw_data = utils.load_merge(path)
 def filter(raw_data):
     data = raw_data
 
@@ -13,8 +17,10 @@ def filter(raw_data):
 
     df = df.groupby('id').sum() #dfg
 
-    
+    df.set_index(['id'],inplace = True)
+
     df = df.sum(axis = 1) # 求各id 的总告警数量
     
     useful_id = df[df>10].index 
+
     
