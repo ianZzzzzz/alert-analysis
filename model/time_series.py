@@ -24,6 +24,9 @@ def find_useful_id(raw_data,key,value):
     return useful_id
     
 path = ''
+start_time = 0
+end_time = 1
+frequency = 's'
 raw_data = utils.load_merge(path)
 id_list = find_useful_id(raw_data,key = 'id',value = 10)
 
@@ -45,7 +48,7 @@ def find_useful_log(raw_data,key,value_list):
     )
 
     """   保留以备导出
-    raw_data = raw_data[[ 
+        raw_data = raw_data[[ 
         "id","time", 
 
         "level_1","level_2","longtitude","magtitude", # location
@@ -57,12 +60,24 @@ def find_useful_log(raw_data,key,value_list):
         'monintoring_net_connect_err' # network 
         ]]
     """
-
-
-    raw_data = raw_data[[ 
+    """   保留以备导出
+     raw_data = raw_data[[ 
         "id","time", 
 
         "level_1","level_2","longtitude","magtitude", # location
+        'door_alarm', 'fan_failure','network_device_error', # device
+        'high_temperature','temperature_alam','temperature', # temperature
+        'lightning_alarm','power_supply_err','voltage','current', # power/electric
+
+        'v1_net_error','v2_net_error','v3_net_error','v4_net_error',  # network
+        'monintoring_net_connect_err' # network 
+        ]]# 保留以备导出
+    """
+    # 基于假设1 的数据
+    raw_data = raw_data[[ 
+
+        "id","time", 
+
         'door_alarm', 'fan_failure','network_device_error', # device
         'high_temperature','temperature_alam','temperature', # temperature
         'lightning_alarm','power_supply_err','voltage','current', # power/electric
@@ -75,7 +90,19 @@ def find_useful_log(raw_data,key,value_list):
     raw_gb_key = dict(list(raw_gb_key))
     for i in value_list :
         if i in raw_gb_key:
-            raw_gb_key[i] = raw_gb_key[i].drop(columns = key )
 
+            raw_gb_key[i] = raw_gb_key[i].drop(columns = key )
+            raw_gb_key[i] = complete_timeline(
+                raw_gb_key[i], 
+                start= start_time,
+                end= end_time , 
+                freq = frequency,
+                value = 0)
+            
+
+            
             # 做插值
 
+def complete_timeline(data,start,end,freq,value):
+    complete_data = None
+    return complete_data
