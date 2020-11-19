@@ -43,6 +43,8 @@ def find_useful_log(raw_data,key,value_list):
          '37','38','voltage','current',
          'power','42','temperature',"longtitude","magtitude" ] 
     )
+
+    """   保留以备导出
     raw_data = raw_data[[ 
         "id","time", 
 
@@ -54,7 +56,20 @@ def find_useful_log(raw_data,key,value_list):
         'v1_net_error','v2_net_error','v3_net_error','v4_net_error',  # network
         'monintoring_net_connect_err' # network 
         ]]
+    """
 
+
+    raw_data = raw_data[[ 
+        "id","time", 
+
+        "level_1","level_2","longtitude","magtitude", # location
+        'door_alarm', 'fan_failure','network_device_error', # device
+        'high_temperature','temperature_alam','temperature', # temperature
+        'lightning_alarm','power_supply_err','voltage','current', # power/electric
+
+        'v1_net_error','v2_net_error','v3_net_error','v4_net_error',  # network
+        'monintoring_net_connect_err' # network 
+        ]]# 保留以备导出
 
     raw_gb_key = raw_data.groupby(key)
     raw_gb_key = dict(list(raw_gb_key))
