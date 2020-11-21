@@ -25,4 +25,7 @@
    https://www.saikr.com/apmcm/2020
    # 亚太赛
 
-   
+    https://www.msra.cn/zh-cn/news/features/emnlp-2020-bot
+    模型压缩 微软亚洲研究院
+
+    
