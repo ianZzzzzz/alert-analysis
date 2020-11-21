@@ -79,7 +79,9 @@ def find_useful_log(raw_data,key,value_list):
         "id","time", 
 
         'door_alarm', 'fan_failure','network_device_error', # device
+
         'high_temperature','temperature_alam','temperature', # temperature
+
         'lightning_alarm','power_supply_err','voltage','current', # power/electric
 
         'v1_net_error','v2_net_error','v3_net_error','v4_net_error',  # network
@@ -98,8 +100,9 @@ def find_useful_log(raw_data,key,value_list):
                 end= end_time , 
                 freq = frequency,
                 value = 0)
-            
 
+    train_data_dict = raw_gb_key
+    
             
             # 做插值
 
