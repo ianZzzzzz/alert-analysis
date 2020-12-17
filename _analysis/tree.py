@@ -62,14 +62,14 @@ class load :
 
             print('append finish')
             return data_frame.values
-
-
         self.raw = load_merge(folder_path)
     
     def choose_column(self,column):
         
         data = self.raw[:,column]
         return data
+    
+    
     def gb(self,key): # 待补全
         data = self.raw.groupby()
 
