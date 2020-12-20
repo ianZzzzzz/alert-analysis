@@ -37,6 +37,7 @@ class load :
     def __init__(self,folder_path):
         
         column = 0
+        
         row = 0
         def load_merge(folder_path):
 
